@@ -52,71 +52,11 @@ def getAdjacentCells(i,j):
     return L
 
 def getAllPossibleMoves(k, L):
+    #k est le joueur : 0 = noir, 1 = blanc
     C=[] #coups possibles                               
     
     if(k=="B"):
-        for i in range(8):
-            for j in range(8):
-                if(L[i][j] == "B"):
-                    A=getAdjacentCells(i, j)
-                    for n in range(len(A)):
-                        if(L[A[n][0]][A[n][1]]=="N"):
-                            x=A[n][0]-i
-                            y=A[n][1]-j
-                            a=i+x
-                            b=j+y
-                            while(a>=0 and a<8 and b>=0 and b<8):
-                                if(L[a][b]=="_"):
-                                    C.append((a,b))
-                                    break
-                                if(L[a][b]=="B"):
-                                    break
-                                a+=x
-                                b+=y
-                            
-    if(k=="N"):
-        for i in range(8):
-            for j in range(8):
-                if(L[i][j] == "N"):
-                    A=getAdjacentCells(i, j)
-                    for n in range(len(A)):
-                        if(L[A[n][0]][A[n][1]]== "B"):
-                            x=A[n][0]-i
-                            y=A[n][1]-j
-                            a=i+x
-                            b=j+y
-                            while(a>=0 and a<8 and b>=0 and b<8):
-                                if(L[a][b]=="_"):
-                                    C.append((a,b))
-                                    break
-                                if(L[a][b]=="N"):
-                                    break
-                                a+=x
-                                b+=y
-                                
-    return C
-                               
-def isFinished(compteTour, L):
-    if "N" in L == False:
-        print("Le joueur Noir a gagné la partie !!!")
-        return True
-    elif "B" in L == False:
-        print("Le joueur Blanc a gagné la partie !!!")
-        return True
-    elif compteTour == 63:
-        if L.count("N")>L.count("B"):
-            print("Le joueur Noir a gagné la partie !!!")
-        elif L.count("N")<L.count("B"):
-            print("Le joueur Blanc a gagné la partie !!!")
-        else :
-            ("Partie terminée. Egalité !!!")
-        return True
-    else:
-        return False
-
-def isPlayable(i,j,k,L):
-    if (i,j) in getAllPossibleMoves(k,L):
-        return True
+@ -121,16 +120,187 @@ def isPlayable(i,j,k,L):
     else:
         return False
 
@@ -291,11 +231,14 @@ def convertTaken(i, j, k, L):
 
 def move(k, L):
     print('Mouvements possibles : ', getAllPossibleMoves(k,L))
+    i = int(input("Jouer en ligne : "))
     i = int(input("Jouer en ligne : "))#Gérer les erreurs non int() avec un try catch ?
     j = int(input("Jouer en colonne : "))
     while isPlayable(i,j,k,L) == False:
         print("Ce mouvement est impossible, veuillez saisir des valeurs correctes")
         print('Mouvements possibles : ', getAllPossibleMoves(k,L))
+        i = input("Jouer en ligne : ")
+        j = input("Jouer en colonne : ")
         i = int(input("Jouer en ligne : "))
         j = int(input("Jouer en colonne : "))
         print(isPlayable(i,j,k,L))
@@ -305,20 +248,8 @@ def move(k, L):
 
 def play():
     L = createGame()
-    display(L)
-    compteTour= 1
-    while isFinished(compteTour, L) == False:
-        if compteTour % 2 == 0:
-            print("Joueur Blanc, c'est votre tour")
-            k="B"
-            L=move(k, L)
-        if compteTour % 2 == 1:
-            print("Joueur Noir, c'est votre tour")
-            k="N"
-            L=move(k, L)
-        display(L)
-        compteTour += 1
-
+@ -152,4 +322,3 @@ def play():
 #Code principal
 play()        
 
+ 
