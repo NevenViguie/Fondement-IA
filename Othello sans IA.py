@@ -123,7 +123,7 @@ def isPlayable(i,j,k,L):
 def convertTaken(i, j, k, L):
     if(k=="B"):
         #Parcours SUD
-        if L[i+1][j]=="N":#Gérer l'exception out of range
+        if i<7 and L[i+1][j]=="N":#Gérer l'exception out of range
             for x in range(i+1, 8):
                 if L[x][j]=="_":
                     break
@@ -133,7 +133,7 @@ def convertTaken(i, j, k, L):
                     
 
         #Parcours NORD
-        if L[i-1][j]=="N":
+        if i>0 and L[i-1][j]=="N":
             for x in range(i-1, -1,-1):
                 if L[x][j]=="_":
                     break
@@ -142,7 +142,7 @@ def convertTaken(i, j, k, L):
                         L[l][j]="B"
                     
         #Parcours Est
-        if L[i][j+1]=="N":
+        if j<7 and L[i][j+1]=="N":
             for x in range(j+1, 8):
                 if L[i][x]=="_":
                     break
@@ -151,7 +151,7 @@ def convertTaken(i, j, k, L):
                         L[i][l]="B"
                     
         #Parcours Ouest 
-        if L[i][j-1]=="N":
+        if j>0 and L[i][j-1]=="N":
             for x in range(j-1, -1,-1):
                 if L[i][x]=="_":
                     break
@@ -160,20 +160,20 @@ def convertTaken(i, j, k, L):
                         L[i][l]="B"
                         
         #Parcours Sud Est
-        if L[i+1][j+1]=="N":
+        if i<7 and j<7 and L[i+1][j+1]=="N":
             for x in range(i+1, 8):
-                if L[x][x]=="_":
+                if x>7 or L[x][x]=="_":
                     break
                 if L[x][x]=="B":
                     for l in range(i+1,x):
                         L[l][l]="B"
                         
         #Parcours Sud Ouest
-        if L[i+1][j-1]=="N":
+        if i<7 and j>0 and L[i+1][j-1]=="N":
             y=j
             for x in range(i+1, 8):
                 y-=1
-                if L[x][y]=="_":
+                if x>7 or y<0 or L[x][y]=="_":
                     break
                 if L[x][y]=="B": 
                     for l in range(i+1,x):
@@ -181,11 +181,11 @@ def convertTaken(i, j, k, L):
                             L[l][m]="B"
                             
         #Parcours Nord Est
-        if L[i-1][j+1]=="N":
+        if i>0 and j<7 and L[i-1][j+1]=="N":
             y=j
             for x in range(i-1, -1,-1):
                 y+=1
-                if L[x][y]=="_":
+                if x<0 or y>7 or L[x][y]=="_":
                     break
                 if L[x][y]=="B":
                     print("on passe par là")
@@ -194,10 +194,10 @@ def convertTaken(i, j, k, L):
                             L[l][m]="B"
                             
         #Parcours Nord Ouest
-        if L[i-1][j-1]=="N":
+        if i>0 and j>0 and L[i-1][j-1]=="N":
             print('Nord Ouest')
             for x in range(i-1, -1,-1):
-                if L[x][x]=="_":
+                if x<0 or L[x][x]=="_":
                     break
                 if L[x][x]=="B":
                     for l in range(i-1,x,-1):
@@ -205,7 +205,7 @@ def convertTaken(i, j, k, L):
                         
     else:
         #Parcours SUD
-        if L[i+1][j]=="B":#Gérer l'exception out of range
+        if i<7 and L[i+1][j]=="B":#Gérer l'exception out of range
             for x in range(i+1, 8):
                 if L[x][j]=="_":
                     break
@@ -215,7 +215,7 @@ def convertTaken(i, j, k, L):
                         
 
         #Parcours NORD
-        if L[i-1][j]=="B":
+        if i>0 and L[i-1][j]=="B":
             for x in range(i-1, -1,-1):
                 if L[x][j]=="_":
                     break
@@ -224,7 +224,7 @@ def convertTaken(i, j, k, L):
                         L[l][j]="N"
                         
         #Parcours Est
-        if L[i][j+1]=="B":
+        if j<7 and L[i][j+1]=="B":
             for x in range(j+1, 8):
                 if L[i][x]=="_":
                     break
@@ -233,7 +233,7 @@ def convertTaken(i, j, k, L):
                         L[i][l]="N"
                         
         #Parcours Ouest 
-        if L[i][j-1]=="B":
+        if j>0 and L[i][j-1]=="B":
             for x in range(j-1, -1,-1):
                 if L[i][x]=="_":
                     break
@@ -242,20 +242,20 @@ def convertTaken(i, j, k, L):
                         L[i][l]="N"
                         
         #Parcours Sud Est
-        if L[i+1][j+1]=="B":
+        if i<7 and j<7 and L[i+1][j+1]=="B":
             for x in range(i+1, 8):
-                if L[x][x]=="_":
+                if x>7 or L[x][x]=="_":
                     break
                 if L[x][x]=="N":
                     for l in range(i+1,x):
                         L[l][l]="N"
                         
         #Parcours Sud Ouest
-        if L[i+1][j-1]=="B":
+        if i<7 and j>0 and L[i+1][j-1]=="B":
             y=j
             for x in range(i+1, 8):
                 y-=1
-                if L[x][y]=="_":
+                if x>7 or y<0 or L[x][y]=="_":
                     break
                 if L[x][y]=="N": 
                     for l in range(i+1,x):
@@ -263,11 +263,11 @@ def convertTaken(i, j, k, L):
                             L[l][m]="N"
                             
         #Parcours Nord Est
-        if L[i-1][j+1]=="B":
+        if i>0 and j<7 and L[i-1][j+1]=="B":
             y=j
             for x in range(i-1, -1,-1):
                 y+=1
-                if L[x][y]=="_":
+                if x<0 or y>7 or L[x][y]=="_":
                     break
                 if L[x][y]=="N":
                     print("on passe par là")
@@ -276,10 +276,10 @@ def convertTaken(i, j, k, L):
                             L[l][m]="N"
                             
         #Parcours Nord Ouest
-        if L[i-1][j-1]=="B":
+        if i>0 and j>0 and L[i-1][j-1]=="B":
             print('Nord Ouest')
             for x in range(i-1, -1,-1):
-                if L[x][x]=="_":
+                if x<0 or L[x][x]=="_":
                     break
                 if L[x][x]=="N":
                     for l in range(i-1,x,-1):
@@ -289,17 +289,21 @@ def convertTaken(i, j, k, L):
 
 def move(k, L):
     print('Mouvements possibles : ', getAllPossibleMoves(k,L))
+    
     i = int(input("Jouer en ligne : "))#Gérer les erreurs non int() avec un try catch ?
     j = int(input("Jouer en colonne : "))
+        
     while isPlayable(i,j,k,L) == False:
         print("Ce mouvement est impossible, veuillez saisir des valeurs correctes")
         print('Mouvements possibles : ', getAllPossibleMoves(k,L))
         i = int(input("Jouer en ligne : "))
         j = int(input("Jouer en colonne : "))
         print(isPlayable(i,j,k,L))
+            
     L[i][j] = k
     convertTaken(i,j,k,L)
     return L
+        
 
 def play():
     L = createGame()
